@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vibrant Web Solutions - Landing Page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* ===== Variables ===== */
+    :root {
+      --primary-green: #2ecc71;
+      --dark-green: #27ae60;
+      --white: #ffffff;
+      --black: #333333;
+      --red: #e74c3c;
+      --yellow: #f1c40f;
+      --light-gray: #f5f5f5;
+      --gray: #95a5a6;
+    }
+
+    /* ===== Base ===== */
+    * { margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background:var(--white); color:var(--black); line-height:1.6; }
+    h1 { font-size:3rem; margin-bottom:20px; font-weight:700; text-align:center; }
+    h2 { font-size:2.5rem; text-align:center; margin-bottom:50px; position:relative; }
+    h2::after { content:''; position:absolute; bottom:-15px; left:50%; transform:translateX(-50%); width:80px; height:4px; background:var(--primary-green); }
+    p { font-size:1.1rem; margin-bottom:15px; }
+    .text-center { text-align:center; }
+    section { padding: 80px 20px; }
+
+    /* ===== Buttons ===== */
+    .btn { display:inline-block; padding:12px 30px; background:var(--primary-green); color:var(--white); text-decoration:none; border-radius:30px; font-weight:600; transition:all 0.3s ease; cursor:pointer; border: none; }
+    .btn:hover { background:var(--dark-green); transform:translateY(-3px); box-shadow:0 5px 15px rgba(0,0,0,0.1); }
+    .pulse { animation:pulse 2s infinite; }
+
+    /* ===== Hero ===== */
+    .hero { background:linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=1350&q=80') center/cover no-repeat; min-height:100vh; display:flex; align-items:center; justify-content:center; text-align:center; color:var(--white); padding: 0 20px; }
+    .hero-content { max-width: 800px; }
+    .hero-content h1 { font-size:3.5rem; animation:fadeInDown 1s ease; margin-bottom: 25px; }
+    .hero-content p { font-size:1.3rem; margin-bottom:30px; animation:fadeInUp 1s ease; opacity: 0.9; }
+
+    /* ===== About ===== */
+    .about { background:var(--light-gray); }
+    .about-content { max-width: 800px; margin: 0 auto; }
+    .bullet-points { list-style:none; }
+    .bullet-points li { margin-bottom:15px; position:relative; padding-left:35px; font-size: 1.1rem; }
+    .bullet-points li::before { content:'✓'; position:absolute; left:0; top:0; width:25px; height:25px; background:var(--primary-green); border-radius:50%; color: white; text-align: center; line-height: 25px; }
+
+    /* ===== Services ===== */
+    .services { background: var(--white); }
+    .services > p { max-width: 600px; margin: 0 auto 40px; text-align: center; }
+    .services-grid { display:grid; gap:25px; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); max-width: 1000px; margin: 0 auto; }
+    .service-card { background:var(--white); border-radius:10px; padding:30px; box-shadow:0 5px 15px rgba(0,0,0,0.08); opacity:0; transform:translateY(20px); transition:all 0.3s ease; text-align: center; font-weight: 600; border-top: 4px solid var(--primary-green); }
+    .service-card:hover { transform:translateY(-10px); box-shadow:0 15px 30px rgba(0,0,0,0.1); }
+
+    /* ===== Testimonials ===== */
+    .mv-section { background:var(--light-gray); }
+    .mv-container { display:grid; gap:30px; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); max-width: 1000px; margin: 0 auto; }
+    .mv-card { background:var(--white); border-radius:10px; padding:30px; box-shadow:0 5px 15px rgba(0,0,0,0.08); opacity:0; transform:translateY(20px); transition:all 0.3s ease; text-align: center; }
+    .mv-card:hover { transform:translateY(-10px); box-shadow:0 15px 30px rgba(0,0,0,0.1); }
+
+    /* ===== Offers ===== */
+    .offers { background: var(--white); }
+    .offers-grid { display:grid; gap:30px; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); max-width: 1000px; margin: 0 auto; }
+    .offer-card { background:var(--white); border-radius:10px; padding:40px 30px; box-shadow:0 5px 15px rgba(0,0,0,0.08); opacity:0; transform:translateY(20px); transition:all 0.3s ease; text-align: center; position: relative; overflow: hidden; border: 1px solid #eee; }
+    .offer-card:hover { transform:translateY(-10px); box-shadow:0 15px 30px rgba(0,0,0,0.1); }
+    .offer-card h3 { color: var(--dark-green); margin-bottom: 15px; }
+    .price { font-size: 2.5rem; color: var(--primary-green); font-weight: 700; margin: 20px 0; }
+    .offer-card .btn { margin-top: 15px; }
+
+    /* ===== Contact ===== */
+    .contact { background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1516387938699-a93567ec168e?auto=format&fit=crop&w=1350&q=80') center/cover no-repeat; color: var(--white); text-align: center; }
+    .contact h2 { color: var(--white); }
+    .contact h2::after { background: var(--white); }
+    .contact > p { max-width: 600px; margin: 0 auto 30px; font-size: 1.2rem; opacity: 0.9; }
+
+    /* ===== Footer ===== */
+    footer { background:var(--black); padding:40px 15px; text-align:center; color:var(--white); font-size:0.9rem; }
+
+    /* ===== Animations ===== */
+    @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+    @keyframes fadeInDown { from{opacity:0; transform:translateY(-20px);} to{opacity:1; transform:translateY(0);} }
+    @keyframes fadeInUp { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
+    @keyframes pulse { 0%{box-shadow:0 0 0 0 rgba(46,204,113,0.7);} 70%{box-shadow:0 0 0 15px rgba(46,204,113,0);} 100%{box-shadow:0 0 0 0 rgba(46,204,113,0);} }
+
+    /* Revealed Class */
+    .revealed { opacity:1 !important; transform:translateY(0) !important; transition:opacity 0.6s ease, transform 0.6s ease; }
+
+    /* ===== Responsive ===== */
+    @media(max-width:992px){ 
+      h1{font-size:2.5rem;} 
+      h2{font-size:2rem;} 
+      .hero-content h1{font-size:3rem;} 
+    }
+    @media(max-width:768px){ 
+      .hero-content h1{font-size:2.5rem;} 
+      .hero-content p{font-size:1.1rem;} 
+      section { padding: 60px 20px; }
+    }
+    @media(max-width:576px){ 
+      h1{font-size:2rem;} 
+      h2{font-size:1.8rem;} 
+      .hero-content h1{font-size:2rem;} 
+      .hero-content p{font-size:1rem;} 
+      .btn { padding: 10px 20px; }
+    }
+  </style>
+</head>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1297315855518283'); 
+fbq('track', 'PageView');
+</script>
+<noscript>
+  <img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1297315855518283&ev=PageView&noscript=1"/>
+</noscript>
+<!-- End Meta Pixel Code -->
+<body>
+
+  <!-- ===== Hero Section ===== -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Turn Clicks into Clients with a Website That Converts</h1>
+      <p>At Vibrant Web Solutions, we build websites that don't just look good — they're designed to capture leads, grow your brand, and drive results.</p>
+      <a href="https://wa.me/27645192556" class="btn pulse">Get Your Website from Just R1000</a>
+    </div>
+  </section>
+
+  <!-- ===== About / Benefits Section ===== -->
+  <section class="about">
+    <div class="about-content">
+      <h2>Why Businesses Choose Us</h2>
+      <ul class="bullet-points">
+        <li>Affordable packages starting at R1000</li>
+        <li>Mobile-friendly & modern designs</li>
+        <li>SEO optimized to rank on Google</li>
+        <li>AI automation & lead capture tools built-in</li>
+        <li>Fast turnaround (days, not weeks)</li>
+        <li>Local South African support you can trust</li>
+      </ul>
+    </div>
+  </section>
+
+<!-- ===== Services Section ===== -->
+<section class="services">
+  <h2>Website Designs for Every Industry</h2>
+  <p class="text-center">Custom-built websites that save time and money. Perfect for local businesses.</p>
+  <div class="services-grid">
+    <a href="https://washandglowcarwash.co.za" class="service-card">Car wash & Detailing</a>
+    <a href="https://adamgardens.co.za" class="service-card">Gardening & Landscaping</a>
+    <a href="https://bradley267ocks.github.io/construction-experts/" class="service-card">Construction</a>
+    <a href="https://bradley267ocks.github.io/construction-experts/" class="service-card">Electrical & Plumbing</a>
+    <a href="https://yourwebsite.com/restaurants-takeaways" class="service-card">Restaurants & Takeaways</a>
+    <a href="https://yourwebsite.com/beauty-wellness" class="service-card">Beauty & Wellness</a>
+  </div>
+</section>
+
+
+  <!-- ===== Testimonials Section ===== -->
+  <section class="mv-section">
+    <h2>What Our Clients Say</h2>
+    <div class="mv-container">
+      <div class="mv-card">
+        <div style="font-size: 1.8rem; color: var(--yellow); margin-bottom: 15px;">⭐⭐⭐⭐⭐</div>
+        <p>"Vibrant Web Solutions built my site in just a few days. I've already gotten new clients through my website!"</p>
+        <p style="font-weight: 600; margin-top: 15px;">- Thabo M., Johannesburg</p>
+      </div>
+      <div class="mv-card">
+        <div style="font-size: 1.8rem; color: var(--yellow); margin-bottom: 15px;">⭐⭐⭐⭐⭐</div>
+        <p>"Affordable, professional, and great support. My new website has helped my small business stand out from competitors."</p>
+        <p style="font-weight: 600; margin-top: 15px;">- Sarah K., Cape Town</p>
+      </div>
+      <div class="mv-card">
+        <div style="font-size: 1.8rem; color: var(--yellow); margin-bottom: 15px;">⭐⭐⭐⭐⭐</div>
+        <p>"The SEO optimization actually works! My landscaping business is now on the first page of Google. Highly recommend!"</p>
+        <p style="font-weight: 600; margin-top: 15px;">- David L., Durban</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Offers / Pricing Section ===== -->
+  <section class="offers">
+    <h2>Our Website Packages</h2>
+    <p class="text-center">Choose the package that's right for your business needs and budget</p>
+    <div class="offers-grid">
+      <div class="offer-card">
+        <h3>Starter Website</h3>
+        <p>Perfect for small businesses just starting online</p>
+        <ul style="text-align: left; margin: 20px 0; padding-left: 20px;">
+          <li>Single page design</li>
+          <li>Contact form</li>
+          <li>Mobile-responsive</li>
+          <li>Basic SEO setup</li>
+          <li>Social media integration</li>
+        </ul>
+        <p class="price">R1000</p>
+        <a href="https://wa.me/27645192556" class="btn">Choose Starter</a>
+      </div>
+      <div class="offer-card" style="transform: scale(1.05); z-index: 2; border: 2px solid var(--primary-green);">
+        <div style="position: absolute; top: 0; right: 0; background: var(--primary-green); color: white; padding: 5px 15px; font-weight: 600; border-radius: 0 0 0 10px;">MOST POPULAR</div>
+        <h3>Business Website</h3>
+        <p>Ideal for growing businesses</p>
+        <ul style="text-align: left; margin: 20px 0; padding-left: 20px;">
+          <li>Up to 5 pages</li>
+          <li>Image gallery</li>
+          <li>WhatsApp integration</li>
+          <li>Advanced SEO</li>
+          <li>Google Maps integration</li>
+          <li>Basic analytics</li>
+        </ul>
+        <p class="price">R2500</p>
+        <a href="https://wa.me/27645192556" class="btn">Choose Business</a>
+      </div>
+      <div class="offer-card">
+        <h3>Pro Website</h3>
+        <p>For established businesses wanting maximum impact</p>
+        <ul style="text-align: left; margin: 20px 0; padding-left: 20px;">
+          <li>Unlimited pages</li>
+          <li>AI automation tools</li>
+          <li>Advanced SEO optimization</li>
+          <li>Booking system</li>
+          <li>E-commerce functionality</li>
+          <li>Premium support</li>
+        </ul>
+        <p class="price">R4000</p>
+        <a href="https://wa.me/27645192556" class="btn">Choose Pro</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Final CTA Section ===== -->
+  <section class="contact">
+    <h2>Ready to Take Your Business Online?</h2>
+    <p class="text-center">Let's build you a website that brings results – fast, affordable, and stress-free.</p>
+    <a href="https://wa.me/27645192556" class="btn pulse">
+      <i class="fab fa-whatsapp"></i> WhatsApp Us: +27 64 519 2556
+    </a>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer>
+    <p>© 2025 Vibrant Web Solutions. All rights reserved.</p>
+  </footer>
+
+  <!-- JS -->
+  <script>
+    // Reveal elements on scroll
+    document.addEventListener('DOMContentLoaded', function() {
+      const elementsToReveal = document.querySelectorAll('.service-card, .mv-card, .offer-card');
+      
+      function checkIfInView() {
+        elementsToReveal.forEach(function(element) {
+          const position = element.getBoundingClientRect();
+          
+          // If element is in viewport
+          if(position.top < window.innerHeight - 100 && position.bottom >= 0) {
+            element.classList.add('revealed');
+          }
+        });
+      }
+      
+      // Check on load and scroll
+      checkIfInView();
+      window.addEventListener('scroll', checkIfInView);
+      
+      // Add click animation to buttons
+      const buttons = document.querySelectorAll('.btn');
+      buttons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.target.classList.add('btn-clicked');
+          setTimeout(() => {
+            e.target.classList.remove('btn-clicked');
+          }, 300);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
